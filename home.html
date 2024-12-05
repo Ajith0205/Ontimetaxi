@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ontime Taxi Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        header .taxi-name {
+            flex: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header .contact {
+            text-align: right;
+            padding-left: 20px;
+        }
+
+        header .contact p {
+            margin: 5px 0;
+        }
+
+        .slider-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .slider {
+            width: 70%; /* 70% for the cars */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            height: 596px;
+            object-fit: cover;
+        }
+
+        .service-details {
+            width: 30%; /* 30% for the service details */
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            margin-left: 20px;
+        }
+
+        .service-details h2 {
+            margin-bottom: 15px;
+        }
+
+        .service-details ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .service-details li {
+            margin: 10px 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+
+        .nav-buttons button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .nav-buttons button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .slider button.prev {
+            left: 10px;
+        }
+        .slider button.next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="images/ontimecab (1).jpeg" alt="Ontime Taxi Logo">
+        <div class="taxi-name">Ontime Taxi</div>
+        <div class="contact">
+            <p>📞 +91 12345 67890</p>
+            <p>📧 contact@ontimetaxi.com</p>
+        </div>
+    </header>
+
+    <!-- Body Section -->
+    <div class="slider-container">
+        <!-- Image Slider -->
+        <div class="slider">
+            <div class="slides">
+                <img src="images/car.jpeg" alt="Car 1">
+                <img src="images/car1.jpeg" alt="Car 2">
+                <img src="images/car2.jpeg" alt="Car 3">
+                <img src="images/car3.jpeg" alt="Car 4">
+            </div>
+
+            <!-- Navigation Buttons class="nav-buttons" -->
+            <div >
+                <button class="prev"  onclick="moveSlide(-1)">❮</button>
+                <button class="next" onclick="moveSlide(1)">❯</button>
+            </div>
+        </div>
+
+        <!-- Service Details Section -->
+        <div class="service-details">
+            <h2>Our Services</h2>
+            <ul>
+                <li>24/7 reliable taxi services across Tamil Nadu.</li>
+                <li>Comfortable and well-maintained vehicles for all types of trips.</li>
+                <li>Affordable rates with transparent billing.</li>
+                <li>Highly professional and experienced drivers.</li>
+                <li>Safe and secure rides for families and individuals.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Ontime Taxi. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slides img');
+        const slidesContainer = document.querySelector('.slides');
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentSlide = 0; // Loop back to the first image
+            } else if (index < 0) {
+                currentSlide = slides.length - 1; // Loop back to the last image
+            } else {
+                currentSlide = index;
+            }
+
+            const offset = -currentSlide * 100; // Move by 100% for each image
+            slidesContainer.style.transform = `translateX(${offset}%)`;
+        }
+
+        function moveSlide(step) {
+            showSlide(currentSlide + step);
+        }
+
+        // Auto slide every 10 seconds
+        setInterval(() => {
+            // currentSlide = (currentSlide + 1) % slides.length; // Ensure that the images loop
+           console.log("slides.length",slides.length);
+           
+            currentSlide = (currentSlide + 1);
+            console.log("currentSlide ",currentSlide);
+            if(currentSlide > slides.length  ){
+                currentSlide=0;
+                showSlide(currentSlide);
+            }{
+                showSlide(currentSlide);
+            }
+            var  currentSlide1 = (currentSlide + 1);
+            console.log(" new command currentSlide ",currentSlide1);
+            
+            console.log("show slide ",showSlide);
+            
+        }, 2000); // Change every 10 seconds
+    </script>
+
+</body>
+</html>
