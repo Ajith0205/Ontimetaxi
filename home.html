@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,8 +57,10 @@
             flex: 1;
         }
 
+
         .slider {
-            width: 70%; /* 70% for the cars */
+            width: 100%;
+            /* Takes full width */
             position: relative;
             overflow: hidden;
         }
@@ -65,6 +68,8 @@
         .slides {
             display: flex;
             transition: transform 1s ease-in-out;
+            width: 400%;
+            /* Width based on the number of images */
         }
 
         .slides img {
@@ -73,8 +78,10 @@
             object-fit: cover;
         }
 
+
         .service-details {
-            width: 30%; /* 30% for the service details */
+            width: 30%;
+            /* 30% for the service details */
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -123,14 +130,17 @@
         .nav-buttons button:hover {
             background-color: rgba(0, 0, 0, 0.8);
         }
+
         .slider button.prev {
             left: 10px;
         }
+
         .slider button.next {
             right: 10px;
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header Section -->
@@ -155,8 +165,8 @@
             </div>
 
             <!-- Navigation Buttons class="nav-buttons" -->
-            <div >
-                <button class="prev"  onclick="moveSlide(-1)">❮</button>
+            <div>
+                <button class="prev" onclick="moveSlide(-1)">❮</button>
                 <button class="next" onclick="moveSlide(1)">❯</button>
             </div>
         </div>
@@ -180,47 +190,51 @@
     </footer>
 
     <script>
+
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slides img');
-        const slidesContainer = document.querySelector('.slides');
-
-        function showSlide(index) {
-            if (index >= slides.length) {
-                currentSlide = 0; // Loop back to the first image
-            } else if (index < 0) {
-                currentSlide = slides.length - 1; // Loop back to the last image
-            } else {
-                currentSlide = index;
-            }
-
-            const offset = -currentSlide * 100; // Move by 100% for each image
-            slidesContainer.style.transform = `translateX(${offset}%)`;
-        }
+        const slides = document.querySelectorAll('.slides img');  // Assuming you're using querySelectorAll to get all images
 
         function moveSlide(step) {
-            showSlide(currentSlide + step);
+            currentSlide += step;
+
+            if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+            }
+
+            showSlide(currentSlide);
         }
+
+        function showSlide(index) {
+            const slidesContainer = document.querySelector('.slides');
+            const slideWidth = slides[0].clientWidth; // Width of one slide
+            slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
+        }
+
 
         // Auto slide every 10 seconds
         setInterval(() => {
             // currentSlide = (currentSlide + 1) % slides.length; // Ensure that the images loop
-           console.log("slides.length",slides.length);
-           
-            currentSlide = (currentSlide + 1);
-            console.log("currentSlide ",currentSlide);
-            if(currentSlide > slides.length  ){
-                currentSlide=0;
+            // console.log("slides.length",slides.length);
+
+            // currentSlide = (currentSlide + 1);
+            currentSlide = (currentSlide + 1) % slides.length;
+            // console.log("currentSlide ",currentSlide);
+            if (currentSlide > slides.length) {
+                currentSlide = 1;
                 showSlide(currentSlide);
-            }{
+            } {
                 showSlide(currentSlide);
             }
-            var  currentSlide1 = (currentSlide + 1);
-            console.log(" new command currentSlide ",currentSlide1);
-            
-            console.log("show slide ",showSlide);
-            
+            // var  currentSlide1 = (currentSlide + 1);
+            // console.log(" new command currentSlide ",currentSlide1);
+
+            // console.log("show slide ",showSlide);
+
         }, 2000); // Change every 10 seconds
     </script>
 
 </body>
+
 </html>
